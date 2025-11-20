@@ -1,0 +1,402 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  height: 100%;
+}
+
+@layer base {
+  :root {
+    /* Light Mode - Elegant Red */
+    --background: 0 0% 100%;
+    --foreground: 0 64% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 64% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 64% 10%;
+    --primary: 0 84% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 50% 96%;
+    --secondary-foreground: 0 64% 20%;
+    --muted: 0 20% 95%;
+    --muted-foreground: 0 20% 40%;
+    --accent: 0 70% 95%;
+    --accent-foreground: 0 64% 20%;
+    --destructive: 0 84% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 30% 85%;
+    --input: 0 30% 85%;
+    --ring: 0 84% 50%;
+    --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+  }
+
+  .dark {
+    /* Dark Mode - Rich Red */
+    --background: 0 64% 3%;
+    --foreground: 0 100% 95%;
+    --card: 0 64% 5%;
+    --card-foreground: 0 100% 95%;
+    --popover: 0 64% 5%;
+    --popover-foreground: 0 100% 95%;
+    --primary: 0 84% 55%;
+    --primary-foreground: 0 100% 95%;
+    --secondary: 0 50% 15%;
+    --secondary-foreground: 0 100% 95%;
+    --muted: 0 30% 20%;
+    --muted-foreground: 0 20% 70%;
+    --accent: 0 60% 25%;
+    --accent-foreground: 0 100% 95%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 0 100% 95%;
+    --border: 0 30% 25%;
+    --input: 0 30% 25%;
+    --ring: 0 84% 55%;
+    --sidebar-background: 0 64% 5%;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes neon-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 5px 0px theme("colors.red.500");
+  }
+  50% {
+    box-shadow: 0 0 20px 5px theme("colors.orange.500");
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 6px 0 rgba(239, 68, 68, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 10px 2px rgba(239, 68, 68, 0.9);
+  }
+}
+
+@keyframes text-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px theme("colors.red.400");
+  }
+  50% {
+    text-shadow: 0 0 15px theme("colors.orange.400");
+  }
+}
+
+.skeleton-animate {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.neon-glow {
+  animation: neon-pulse 3s ease-in-out infinite;
+}
+
+.text-glow {
+  animation: text-glow 3s ease-in-out infinite;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings:
+      "rlig" 1,
+      "calt" 1;
+  }
+
+  /* Scrollbar styling - Tema Red Moderno */
+  ::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gradient-to-b from-red-950 to-red-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-red-700 to-red-800 rounded-full border border-red-600 hover:from-red-600 hover:to-red-700;
+  }
+}
+
+/* Animations */
+@keyframes slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slide-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-50%);
+  }
+}
+
+.animate-slide {
+  animation: 15s slide linear infinite;
+}
+
+.animate-slide-vertical {
+  animation: 15s slide-vertical linear infinite;
+}
+
+/* Editor Styles */
+.ce-toolbar__content,
+.ce-block__content {
+  max-width: 750px;
+}
+
+.editorFocus {
+  @apply border-none outline-none;
+}
+
+/* Carousel gradient effects */
+.carrossel-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.carrossel-container::before,
+.carrossel-container::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carrossel-container::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+.carrossel-container::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+}
+
+/* Collapsible transitions */
+.CollapsibleContent {
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* Light mode specific adjustments */
+@media (prefers-color-scheme: light) {
+  .neon-glow {
+    animation: neon-pulse 3s ease-in-out infinite alternate;
+  }
+
+  .text-glow {
+    animation: text-glow 3s ease-in-out infinite alternate;
+  }
+
+  .carrossel-container::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  .carrossel-container::after {
+    background: linear-gradient(
+      to top,
+      rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0)
+    );
+  }
+
+  /* Light mode scrollbar */
+  ::-webkit-scrollbar-track {
+    @apply bg-gradient-to-b from-red-50 to-red-100;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-red-300 to-red-400 rounded-full border border-red-200 hover:from-red-400 hover:to-red-500;
+  }
+}
+
+/* Special gradient text class */
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-red-500 to-orange-500;
+}
+
+/* Special border glow effect */
+.border-glow {
+  box-shadow: 0 0 10px theme("colors.red.500");
+  transition: box-shadow 0.3s ease;
+}
+
+.border-glow:hover {
+  box-shadow: 0 0 20px theme("colors.orange.500");
+}
+
+/* Custom button styles */
+.btn-red {
+  @apply bg-red-600 hover:bg-red-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+.btn-red-outline {
+  @apply border border-red-600 text-red-600 hover:bg-red-600 hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+}
+
+/* Card styles */
+.card-red {
+  @apply bg-white dark:bg-red-950 border border-red-200 dark:border-red-800 rounded-lg shadow-sm;
+}
+
+/* Table styles */
+.table-red {
+  @apply w-full border-collapse;
+}
+
+.table-red th {
+  @apply bg-red-50 dark:bg-red-900/30 text-red-800 dark:text-red-200 font-medium py-3 px-4 text-left;
+}
+
+.table-red td {
+  @apply py-3 px-4 border-t border-red-100 dark:border-red-800/50;
+}
+
+.table-red tr {
+  @apply hover:bg-red-50/50 dark:hover:bg-red-900/10 transition-colors;
+}
+
+.day-cell {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.day-cell:focus,
+.day-cell:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Estilos para o editor de texto rico */
+.editor-rich-text h1 {
+  font-size: 1.875rem !important;
+  line-height: 2.25rem !important;
+  font-weight: 700 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+  color: inherit !important;
+}
+
+.editor-rich-text h2 {
+  font-size: 1.5rem !important;
+  line-height: 2rem !important;
+  font-weight: 700 !important;
+  margin-top: 0.75rem !important;
+  margin-bottom: 0.75rem !important;
+  color: inherit !important;
+}
+
+.editor-rich-text h3 {
+  font-size: 1.25rem !important;
+  line-height: 1.75rem !important;
+  font-weight: 600 !important;
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: inherit !important;
+}
+
+.editor-rich-text p {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  color: inherit !important;
+}
+
+.editor-rich-text ul,
+.editor-rich-text ol {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+  padding-left: 1.5rem !important;
+}
+
+.editor-rich-text li {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Efeitos de gradiente específicos para o tema vermelho */
+.gradient-bg {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--background)) 0%,
+    hsl(var(--accent)) 50%,
+    hsl(var(--background)) 100%
+  );
+}
+
+.gradient-border {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)) 0%,
+    hsl(var(--accent-foreground)) 100%
+  );
+  padding: 1px;
+  border-radius: var(--radius);
+}
+
+.gradient-border > * {
+  border-radius: calc(var(--radius) - 1px);
+}
+
+/* Efeito de brilho sutil para cards */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glow::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(239, 68, 68, 0.1),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.card-glow:hover::before {
+  left: 100%;
+}
