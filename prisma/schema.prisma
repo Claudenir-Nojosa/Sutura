@@ -26,6 +26,10 @@ model User {
   // NextAuth relationships
   accounts Account[]
   sessions Session[]
+
+  // 🆕 NOVA RELAÇÃO COM TRANSCRIÇÕES
+  transcricoes Transcricao[]
+  projetos ProjetoVideo[]
 }
 
 model Account {
@@ -74,6 +78,57 @@ model Atividade {
   tempoReal      Int? // Tempo real gasto em minutos
   dataInicio     DateTime? // Quando a atividade foi iniciada
   dataConclusao  DateTime? // Quando a atividade foi concluída
-  emAndamento    Boolean   @default(false) // Se está sendo trabalssshada no momento
+  emAndamento    Boolean   @default(false) // Se está sendo trabalhada no momento
   historicoTempo Json? // Array de sessões de trabalho {inicio, fim, duracao}
+}
+
+model Transcricao {
+  id          String   @id @default(cuid())
+  userId      String
+  videoUrl    String
+  videoId     String   @unique
+  titulo      String
+  canal       String
+  duracao     String
+  thumbnail   String
+  views       String
+  transcricao String   @db.Text
+  idioma      String?  @default("pt")
+  duracaoSegundos Int? // Duração em segundos para ordenação
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relação com usuário
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([videoId])
+}
+
+model ProjetoVideo {
+  id          String   @id @default(cuid())
+  userId      String
+  titulo      String
+  descricao   String?
+  urlVideo    String?  // URL do YouTube original (para referência)
+  statusGeral String   @default("rascunho") // rascunho, em_andamento, concluido
+  
+  // Etapas de produção
+  etapaSEO Json? // { titulo: string, descricao: string, tags: string[], concluido: boolean }
+  etapaThumbnail Json? // { url: string, arquivo: string, concluido: boolean }
+  etapaScript Json? // { conteudo: string, concluido: boolean }
+  etapaEdicao Json? // { concluido: boolean, observacoes: string }
+  etapaPublicacao Json? // { concluido: boolean, urlPublicada: string, dataPublicacao: DateTime }
+  
+  // Metadados
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  // Relação com usuário
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([statusGeral])
+  @@index([createdAt])
 }

@@ -70,14 +70,14 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
             {/* Conteúdo */}
             <main className="flex-1 overflow-y-auto p-4 lg:p-8">
               <div className="max-w-7xl mx-auto w-full">
-                <div className="bg-card/40 backdrop-blur-xl rounded-3xl border border-border shadow-2xl shadow-foreground/5 relative overflow-hidden">
+                <div className="bg-card/40 backdrop-blur-xl rounded-3xl border mt-10 border-border shadow-2xl shadow-foreground/5 relative overflow-hidden">
                   {/* Efeito de brilho sutil */}
                   <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"></div>
 
                   {/* Borda luminosa sutil */}
                   <div className="absolute inset-0 rounded-3xl border border-primary/10 pointer-events-none"></div>
 
-                  <div className="relative z-10">{children}</div>
+                  <div className="relative z-10 p-3">{children}</div>
                 </div>
               </div>
             </main>

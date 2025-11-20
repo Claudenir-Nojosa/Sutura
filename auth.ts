@@ -112,8 +112,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token }) {
-      console.log("Session callback - token.sub:", token.sub);
-      console.log("Session callback - session.user ANTES:", session.user);
 
       const userId = token.sub || token.id;
 
@@ -132,7 +130,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
           });
 
-          console.log("Usuário encontrado no banco:", user);
 
           if (user) {
             session.user.id = user.id;
@@ -145,8 +142,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           console.error("Erro ao buscar usuário na session:", error);
         }
       }
-
-      console.log("Session callback - session.user DEPOIS:", session.user);
       return session;
     },
   },

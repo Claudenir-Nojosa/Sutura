@@ -14,6 +14,7 @@ import {
   Lightbulb,
   Clapperboard,
   LogOut,
+  Wand,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useSession, signOut } from "next-auth/react";
@@ -292,6 +293,24 @@ export default function Sidebar({ onClose }: SidebarProps) {
               <Calendar className="h-5 w-5" />
               {!isCollapsed && (
                 <span className="ml-4 text-sm font-medium">Calendário</span>
+              )}
+            </Link>
+          </li>
+
+            {/* Transcrição */}
+          <li>
+            <Link
+              href="/dashboard/transcricao"
+              className={`
+                flex items-center rounded-xl hover:bg-accent text-muted-foreground transition-all duration-300
+                ${isCollapsed ? "justify-center p-4" : "p-4"}
+                ${isActiveRoute("/dashboard/transcricao") ? "bg-primary/10 text-foreground border-l-2 border-primary shadow-sm" : ""}
+              `}
+              onClick={handleLinkClick}
+            >
+              <Wand className="h-5 w-5" />
+              {!isCollapsed && (
+                <span className="ml-4 text-sm font-medium">Transcrição</span>
               )}
             </Link>
           </li>
